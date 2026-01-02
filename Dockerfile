@@ -2,6 +2,7 @@
 FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbullseye-8446af38-ls104 AS base
 
 ENV TITLE=MetaTrader
+ENV DEBIAN_FRONTEND=noninteractive
 ENV WINEARCH=win64
 ENV WINEPREFIX="/config/.wine"
 ENV DISPLAY=:0
@@ -12,7 +13,7 @@ RUN mkdir -p /config/.wine && \
     chmod -R 755 /config/.wine
 
 # Update package lists and upgrade packages
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -yq --no-install-recommends
 
 # Install required packages
 RUN apt-get install -y \
